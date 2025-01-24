@@ -27,7 +27,7 @@ class LiveDocumentScannerPlugin: FlutterPlugin, MethodCallHandler,
   /// when the Flutter Engine is detached from the Activity
   private lateinit var channel : MethodChannel
   private lateinit var properties: LiveDocumentScannerProperties
-  private lateinit var result: Result
+  private var result: Result? = null
   private var activity: Activity? = null
   private var binding: ActivityPluginBinding? = null
 
@@ -84,20 +84,19 @@ class LiveDocumentScannerPlugin: FlutterPlugin, MethodCallHandler,
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
     if (resultCode != Activity.RESULT_OK || requestCode != START_SCAN_CODE) {
-      result.error("SCAN_FAILED", "Failed to start scanning", null)
       return false
     }
 
     val resultScan = GmsDocumentScanningResult.fromActivityResultIntent(data)
 
     if (resultScan == null) {
-      result.error("SCAN_FAILED", "No results", null)
+      result?.error("SCAN_FAILED", "No results", null)
       return false
     }
 
     when (properties.type) {
       LiveDocumentScannerType.PDF -> {
-        result.success(
+        result?.success(
           mapOf(
             "pdf" to resultScan.pdf?.uri?.path,
             "pageCount" to resultScan.pdf?.pageCount,
@@ -107,7 +106,7 @@ class LiveDocumentScannerPlugin: FlutterPlugin, MethodCallHandler,
         return true
       }
       LiveDocumentScannerType.IMAGES -> {
-        result.success(
+        result?.success(
           mapOf(
             "images" to resultScan.pages?.map { it.imageUri.path },
             "pageCount" to resultScan.pages?.size,
