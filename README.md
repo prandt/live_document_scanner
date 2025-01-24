@@ -1,1 +1,5 @@
-# live_document_scanner
+# Live Document Scanner
+
+## License 
+
+This project is licensed under the [MIT License](LICENSE).
