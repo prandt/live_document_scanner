@@ -83,7 +83,17 @@ class LiveDocumentScannerPlugin: FlutterPlugin, MethodCallHandler,
     .build()
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
-    if (resultCode != Activity.RESULT_OK || requestCode != START_SCAN_CODE) {
+    if (requestCode != START_SCAN_CODE) {
+      return false
+    }
+
+    if (resultCode == Activity.RESULT_CANCELED) {
+      result?.error("SCAN_CANCELED", "Scan was canceled", null)
+      return true
+    }
+
+    if (resultCode != Activity.RESULT_OK) {
+      result?.error("SCAN_FAILED", "Scan failed", null)
       return false
     }
 
