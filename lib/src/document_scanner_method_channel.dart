@@ -11,7 +11,8 @@ class MethodChannelDocumentScanner extends DocumentScannerPlatform {
   final methodChannel = const MethodChannel('live_document_scanner');
 
   @override
-  Future<DocumentScannerResults> scanDocument(DocumentScannerOptions options) async {
+  Future<DocumentScannerResults> scanDocument(
+      DocumentScannerOptions options) async {
     final data = await methodChannel.invokeMethod<dynamic>(
       'scanDocument',
       options.toMap(),

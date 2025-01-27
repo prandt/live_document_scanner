@@ -36,7 +36,8 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () => _scanDocumentPdf(),
                     child: Text("Scan Document - PDF")),
                 const SizedBox(height: 16),
-                if (imagesPath != null) Text("Images: ${imagesPath!.join(", ")}"),
+                if (imagesPath != null)
+                  Text("Images: ${imagesPath!.join(", ")}"),
                 if (pdfPath != null) Text("PDF: $pdfPath"),
               ],
             ),

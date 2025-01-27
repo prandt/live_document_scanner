@@ -1,6 +1,6 @@
 name: live_document_scanner
-description: "A Flutter plugin for scanning documents using camera."
-version: 0.0.1
+description: "A Flutter plugin for scanning documents using camera. It provides a live preview of the document being scanned."
+version: 0.0.2
 homepage: https://rprandt.com/
 
 environment:

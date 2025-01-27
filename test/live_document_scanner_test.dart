@@ -7,7 +7,6 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockLiveDocumentScannerPlatform
     with MockPlatformInterfaceMixin
     implements DocumentScannerPlatform {
-
   @override
   Future<DocumentScannerResults> scanDocument(DocumentScannerOptions options) {
     throw UnimplementedError();
@@ -15,7 +14,6 @@ class MockLiveDocumentScannerPlatform
 }
 
 void main() {
-  final DocumentScannerPlatform initialPlatform = DocumentScannerPlatform.instance;
-
-
+  final DocumentScannerPlatform initialPlatform =
+      DocumentScannerPlatform.instance;
 }
