@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Add repository link to pubspec.yaml.
+
 ## 0.0.2
 
 * Update description and README.
