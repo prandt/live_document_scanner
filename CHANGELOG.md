@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Remove installation instructions from README.
+
 ## 0.0.3
 
 * Add repository link to pubspec.yaml.

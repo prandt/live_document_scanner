@@ -8,22 +8,6 @@
 | **Support**    | SDK 21+ | iOS 13.0+ |
 
 
-## Installation
-
-Add the following dependency to your pubspec.yaml file:
-
-```yaml
-dependencies:
-  live_document_scanner: ^0.0.1
-```
-
-or install it directly from the command line:
-
-```bash
-flutter pub add live_document_scanner
-```
-
-
 ## Setup
 
 ### Android
