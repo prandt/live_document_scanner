@@ -13,21 +13,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _documentScanner = LiveDocumentScanner(
-      options: DocumentScannerOptions(
-          pageLimit: 1,
-          type: DocumentScannerType.images,
-          galleryImportAllowed: true));
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void _scanDocument() async {
-    final results = await _documentScanner.scanDocument();
-    debugPrint("Results: $results");
-  }
+  List<String>? imagesPath;
+  String? pdfPath;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +23,50 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Live Document Scanner example app'),
         ),
-        body: Column(
-          children: [
-            ElevatedButton(
-                onPressed: () => _scanDocument(), child: Text("Scan Document"))
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Center(
+            child: Column(
+              children: [
+                ElevatedButton(
+                    onPressed: () => _scanDocumentImages(),
+                    child: Text("Scan Document - Images")),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                    onPressed: () => _scanDocumentPdf(),
+                    child: Text("Scan Document - PDF")),
+                const SizedBox(height: 16),
+                if (imagesPath != null) Text("Images: ${imagesPath!.join(", ")}"),
+                if (pdfPath != null) Text("PDF: $pdfPath"),
+              ],
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  void _scanDocumentImages() async {
+    final scanner = LiveDocumentScanner(
+        options: DocumentScannerOptions(
+            pageLimit: 1,
+            type: DocumentScannerType.images,
+            galleryImportAllowed: true));
+    final results = await scanner.scanDocument();
+    setState(() {
+      imagesPath = results.images;
+    });
+  }
+
+  void _scanDocumentPdf() async {
+    final scanner = LiveDocumentScanner(
+        options: DocumentScannerOptions(
+            pageLimit: 10,
+            type: DocumentScannerType.pdf,
+            galleryImportAllowed: false));
+    final results = await scanner.scanDocument();
+    setState(() {
+      imagesPath = results.images;
+    });
   }
 }
